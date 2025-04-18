@@ -1,110 +1,120 @@
 import streamlit as st
 from PIL import Image
-import requests
-from streamlit_lottie import st_lottie
 
+# --- Page Config ---
+st.set_page_config(page_title="Ayush Dutta | Portfolio", layout="wide")
 
-# --- LOAD ASSETS ---
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-
-# Lottie animations
-lottie_coding = load_lottieurl("https://assets2.lottiefiles.com/packages/lf20_zrqthn6o.json")
-
-# Profile image
-profile_pic = Image.open("Mee.jpg")  # Replace with your actual image path
-
-# Resume PDF
-with open("Ayush_Resume.pdf", "rb") as pdf_file:
-    PDFbyte = pdf_file.read()
-
-# --- SIDEBAR ---
+# --- Sidebar ---
 with st.sidebar:
-    st.image(profile_pic, width=200)
-    st.title("Ayush Dutta")
-    st.write("📞 8100312383")
-    st.write("📧 ayush.dutta24-26@bibs.co.in")
-    st.markdown("[LinkedIn](https://www.linkedin.com/in/ayush-dutta-9020b6323)")
-    st.markdown("[GitHub](https://github.com/Thecoder969)")
-    st.download_button(label="📄 Download Resume",
-                       data=PDFbyte,
-                       file_name="Ayush_Dutta_Resume.pdf",
-                       mime="application/pdf")
+    st.image("Mee.jpg", width=200)  # Update with your image file name
+    st.markdown("## Ayush Dutta")
+    st.markdown("**📞** 8100312383")
+    st.markdown("**📧** ayush.dutta24-26@bibs.co.in")
+    st.markdown("[🔗 LinkedIn](https://www.linkedin.com/in/ayush-dutta-9020b6323)")
+    st.markdown("[💻 GitHub](https://github.com/Thecoder969)")
+    st.download_button("📄 Download Resume", data=open("Ayush_Resume.pdf", "rb"), file_name="Ayush_Resume.pdf")
 
-# --- HEADER ---
-st.title("Welcome to My Portfolio! 👋")
-st_lottie(lottie_coding, height=300, key="coding")
+# --- Custom CSS ---
+st.markdown("""
+    <style>
+    .main { background-color: #f9f9f9; }
+    h2 { color: #4CAF50; }
+    .tab-content { animation: fadein 1.5s ease-in; }
+    @keyframes fadein {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0px); }
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-# --- TABS ---
-tabs = st.tabs(["Summary", "Education", "Experience", "Skills", "Projects", "Certifications", "Hobbies"])
+# --- Tabs ---
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🏁 Summary", "🎓 Education", "💼 Experience", "🛠 Skills", "📊 Projects", "📜 Certifications", "🎯 Extras"])
 
-with tabs[0]:
-    st.subheader("Summary")
+# --- Summary ---
+with tab1:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
+    st.subheader("Career Summary")
     st.write("""
-I am Ayush Dutta, a passionate and detail-oriented Business Analytics and Data Science student with a strong foundation in data visualization, analysis, and storytelling. Equipped with hands-on experience in tools like Power BI, Excel, Python, and MySQL, I have worked on real-world projects that derive actionable insights from complex data. I am committed to continuous learning and have earned certifications from reputed institutions like IIT Kanpur, IBM, and BCG. My goal is to help organizations make data-driven decisions that create real business impact.
+        Enthusiastic and analytical Business Analytics & Data Science student with hands-on experience in data visualization, Excel modeling,
+        Power BI dashboards, and business consulting case studies. Passionate about turning data into actionable insights and driving decision-making
+        processes through analytics.
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[1]:
+# --- Education ---
+with tab2:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
     st.subheader("Education")
     st.write("""
-    - **PGP + MBA (Business Analytics & Data Science)**, BIBS Kolkata (2024 - Present) — 76%
-    - **BBA**, NSHM Knowledge Campus, Kolkata (2020 - 2023) — 70%
-    - **CBSE (XII)**, Doon Public School, Roorkee (2020) — 56%
-    - **ICSE (X)**, Vivekananda Mission School, Kolkata — 77%
+    - **PGP + MBA in Business Analytics & Data Science**, Bengal Institute of Business Studies, 08/2024 - Present (76%)
+    - **BBA**, NSHM Knowledge Campus, Kolkata, 05/2020 - 06/2023 (70%)
+    - **CBSE**, Doon Public School, Roorkee, 04/2018 - 04/2020 (56%)
+    - **ICSE**, Vivekananda Mission School, Kolkata, 04/2018 (77%)
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[2]:
+# --- Experience ---
+with tab3:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
     st.subheader("Experience")
     st.write("""
-    - **Customer Service Executive, Amazon** (June 2023 - Jan 2024)  
-      Handled tier-2 customer support remotely, a placement opportunity via NSHM.
+    - **Customer Support Executive (Tier 2)**, Amazon (06/2023 – 01/2024)
+        - Delivered efficient customer service as part of the Tier 2 team.
+        - Managed escalations and provided solutions in a WFH environment.
+        - Selected through campus placement at NSHM.
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[3]:
+# --- Skills ---
+with tab4:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
     st.subheader("Skills")
-    st.write("""
-    - **Languages**: Python, MySQL  
-    - **Tools**: Power BI, Tableau, Excel, PowerPoint  
-    - **Domains**: Data Analysis, Visualization, Business Analytics
-    """)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("**Programming:** Python, MySQL")
+        st.markdown("**Tools:** Excel, Power BI, Tableau")
+    with col2:
+        st.markdown("**Concepts:** Data Analysis, Business Analytics, Visualization")
+        st.markdown("**Soft Skills:** Communication, Teamwork, Critical Thinking")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[4]:
+# --- Projects ---
+with tab5:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
     st.subheader("Projects")
     st.markdown("""
-    - 🔹 **Amazon Sales Dashboard (Power BI)**  
-      [Project Link](https://www.linkedin.com/in/ayush-dutta-9020b6323?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)  
-      Interactive dashboard with sales trends, top products, regional performance & drilldowns.
+    - **Amazon Sales Dashboard in Power BI**
+        - Visualized key sales metrics, top-performing products, regional trends
+        - [🔗 View Project](https://1drv.ms/u/c/2ee6a32193a742ff/EcDPcF9TvLpFj5QRmLH8nWgB_p3m4mSzm252aiGIhvoOXg)
 
-    - 🔹 **World Happiness Report (Excel)**  
-      [Project Link](https://1drv.ms/x/c/2ee6a32193a742ff/EV99wr2USc5Iu2LrbXG_ju8Bcv2Vpt_dmv_Wn5GV2hywTg)  
-      Dashboard analyzing happiness vs. sustainability with Power Query, DAX, and Pivot.
+    - **World Happiness Excel Dashboard**
+        - Used Power Query, Pivot, and DAX to analyze sustainability and happiness
+        - [🔗 View Project](https://1drv.ms/x/c/2ee6a32193a742ff/EV99wr2USc5Iu2LrbXG_ju8Bcv2Vpt_dmv_Wn5GV2hywTg)
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[5]:
+# --- Certifications ---
+with tab6:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
     st.subheader("Certifications & Achievements")
     st.write("""
-    - 📜 Machine Learning - IIT Kanpur  
-    - ☁️ AWS - IBM  
-    - 💼 BCG Consulting  
-    - 🧠 PWC Management Consulting  
-    - 🐍 Python - IBM  
-    - 🏗️ Siemens Project Management
+    - **Machine Learning** – IIT Kanpur  
+    - **AWS Cloud** – IBM  
+    - **Python for Data Science** – IBM  
+    - **Consulting** – BCG, PWC  
+    - **Project Management** – Siemens  
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with tabs[6]:
-    st.subheader("Hobbies & Interests")
+# --- Extras ---
+with tab7:
+    st.markdown('<div class="tab-content">', unsafe_allow_html=True)
+    st.subheader("Hobbies & Personal Info")
     st.write("""
-    - 🎧 Music Enthusiast  
-    - 📸 Photography  
-    - 📊 Dashboard Designing  
+    - 💡 Creative Design
+    - 🎵 Music Enthusiast
+    - 📸 Photography
     - 🎮 Gaming
+    - 🌱 Learning New Tech
     """)
-
-# --- FOOTER ---
-st.markdown("---")
-st.markdown("Made using Streamlit")
-
+    st.markdown('</div>', unsafe_allow_html=True)
